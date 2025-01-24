@@ -1,10 +1,9 @@
 # diematic
 
-A Python script to monitor De Dietrich boiler equiped with Diematic system using Modbus RS-845 protocol.
-The values fetched from the boiler are sent to an InfluxDB database, for monitoring with Chronograph.
+A Python script to monitor De Dietrich boilers equiped with Diematic system, using Modbus RS-845 protocol.
+The values fetched from the boiler are sent to an InfluxDB database, for monitoring with tools like [Chronograf](images/chronograf_screenshot.png?raw=true).
 
-![Screenshot](images/chronograf_screenshot.png?raw=true)
-
+NOTE: The [original repository](https://github.com/gmasse/diematic/) isn't maintained any more, but I will continue to update this fork.
 
 ## Hardware requirements
 
@@ -13,7 +12,7 @@ The values fetched from the boiler are sent to an InfluxDB database, for monitor
  * A RS-845 to USB adapter
  * A nano-computer with a USB port and Python3 installed (Raspberry pi or similar)
 
-Check tutorials in the "references" section below on how to do the hardware setup.
+Check links in the "references" section below on how to do the hardware setup.
 
 ## Installation
 ```
@@ -81,9 +80,6 @@ To run the script every minute and feed the database, `crontab -e` and add the f
 
 
 ## References
-- https://github.com/riptideio/pymodbus
-- (french) http://sarakha63-domotique.fr/chaudiere-de-dietrich-domotise-modbus/amp/
-- (french) https://www.dom-ip.com/wiki/Réalisation_d%27une_Interface_Web_pour_une_chaudière_De_Dietrich_équipée_d%27une_régulation_Diematic_3
-- (french forum) https://www.domotique-fibaro.fr/topic/5677-de-dietrich-diematic-isystem/
-- ~~(french forum) http://www.wit-square.fr/forum/topics/de-dietrich-communication-modbus-bi-ma-tre~~
-- (french, modbus registers sheets, copy from previous forum) https://drive.google.com/file/d/156qBsfRGJvOpJBJu5K4WMHUuwv34bZQN/view?usp=sharing
+- [Modbus protocol](https://github.com/riptideio/pymodbus)
+- [A thread on De Dietrich diematic in a french forum](https://www.domotique-fibaro.fr/topic/5677-de-dietrich-diematic-isystem/)
+- [Modbus registers sheet](https://drive.google.com/file/d/156qBsfRGJvOpJBJu5K4WMHUuwv34bZQN/view?usp=sharing)
