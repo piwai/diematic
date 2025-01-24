@@ -5,7 +5,7 @@ logging: critical
 # The 'register_ranges' indicates the ranges of ids to be read
 # from the device, to avoid reading lots of useless data.
 # All registers ids listed in the 'registers' section below
-# must be included in a range, otherwise they will be ignored.
+# Must be included in a range, otherwise they will be ignored.
 modbus:
     retries: 3
     unit: 10
@@ -13,9 +13,10 @@ modbus:
     timeout: 10
     baudrate: 9600
     register_ranges:
-      - [ 600, 620]
-      - [ 637, 640]
-      - [ 700, 702]
+      - [ 600, 616]
+      - [ 637, 638]
+      - [ 650, 652]
+      - [ 672, 674] 
 
 influxdb:
     host: localhost
@@ -25,6 +26,15 @@ influxdb:
     database: diematic
 
 registers:
+    - id: 650
+      name: temperature_day_circuit_a
+      type: DiematicOneDecimal
+    - id: 651
+      name: temperature_night_circuit_a
+      type: DiematicOneDecimal 
+    - id: 672
+      name: temperature_tank_setpoint
+      type: DiematicOneDecimal
     - id: 601
       name: temperature_external
       type: DiematicOneDecimal
@@ -37,8 +47,11 @@ registers:
     - id: 605
       name: temperature_circuit_b
       type: DiematicOneDecimal
-    - id: 606
-      name: temperature_circuit_c
+    - id: 607
+      name: temperature_return
+      type: DiematicOneDecimal
+    - id: 608
+      name: ionization_current
       type: DiematicOneDecimal
     - id: 610
       name: pressure
@@ -49,58 +62,9 @@ registers:
     - id: 616
       name: temperature_ambiant_circuit_b
       type: DiematicOneDecimal
-    - id: 618
-      name: temperature_ambiant_circuit_c
-      type: DiematicOneDecimal
     - id: 637
       name: mode_circuit_a
       type: DiematicModeFlag
     - id: 638
       name: mode_circuit_b
       type: DiematicModeFlag
-    - id: 639
-      name: mode_circuit_c
-      type: DiematicModeFlag
-    - id: 700
-      name: bits_base
-      type: bits
-      bits:
-          - io_pump_aux
-          - io_pump_boiler_1
-          - io_burner_1_2
-          - io_burner_1_1
-          - io_pump_a
-          - io_pump_ecs
-          - io_alarm_burner_1
-          - io_diematic
-          - io_switch_isolation_1
-          - io_boiler_mod_1
-          - io_burner_6_2
-          - io_burner_6_1
-          - io_burner_5_2
-          - io_burner_5_1
-          - io_burner_4_2
-          - io_burner_4_1
-    - id: 701
-      name: bits_terminal_2
-      type: bits
-      bits:
-          - io_burner_2_1
-          - io_burner_2_2
-          - io_pump_boiler_2
-          - io_alarm_burner_2
-          - io_unknown_duree_2_1
-          - io_unknown_duree_2_2
-          - io_unknown_duree_1_1
-          - io_board_detected_k11
-          - io_switch_isolation_2
-          - io_boiler_mod_2
-          - io_burner_9_2
-          - io_burner_9_1
-          - io_burner_8_2
-          - io_burner_8_1
-          - io_burner_7_2
-          - io_burner_7_1
-
-
-
