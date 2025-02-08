@@ -1,7 +1,11 @@
 # diematic
 
 A Python script to monitor De Dietrich boilers equiped with Diematic system, using Modbus RS-845 protocol.
-The values fetched from the boiler are sent to an InfluxDB database, for monitoring with tools like [Chronograf](images/chronograf_screenshot.png?raw=true).
+The values fetched from the boiler are sent to an InfluxDB database, for monitoring with tools like [Chronograf](images/chronograf_screenshot.png?raw=true) or [Grafana](images/grafana_screenshot.png?raw=true):
+
+![Screenshot](images/grafana_screenshot.png?raw=true)
+
+
 
 NOTE: The [original repository](https://github.com/gmasse/diematic/) isn't maintained any more, but I will continue to update this fork.
 
