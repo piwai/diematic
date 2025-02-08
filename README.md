@@ -43,34 +43,13 @@ optional arguments:
 `python3 diematic.py --backend none --logging debug`
 
 ## InfluxDB preparation
-### Minimal
-```
-CREATE DATABASE "diematic"
-CREATE USER "diematic" WITH PASSWORD 'mySecurePas$w0rd'
-GRANT ALL ON "diematic" TO "diematic"
-CREATE RETENTION POLICY "one_week" ON "diematic" DURATION 1w REPLICATION 1 DEFAULT
-```
 
-### Additionnal steps for down-sampling
+To create the InfluxDB database, use the [init-file](init-influxdb.sql) file. Be sure to update
+the password line 4.
+
 ```
-CREATE RETENTION POLICY "five_weeks" ON "diematic" DURATION 5w REPLICATION 1
-CREATE RETENTION POLICY "five_years" ON "diematic" DURATION 260w REPLICATION 1
-
-CREATE CONTINUOUS QUERY "cq_month" ON "diematic" BEGIN
-  SELECT mean(/temperature/) AS "mean_1h", mean(/pressure/) AS "mean_1h", max(/temperature/) AS "max_1h", max(/pressure/) AS "max_1h"
-  INTO "five_weeks".:MEASUREMENT
-  FROM "one_week"."diematic"
-  GROUP BY time(1h),*
-END
-
-CREATE CONTINUOUS QUERY "cq_year" ON "diematic" BEGIN
-  SELECT mean(/^mean_.*temperature/) AS "mean_24h", mean(/^mean_.*pressure/) AS "mean_24h", max(/^max_.*temperature/) AS "max_24h", max(/^max_.*pressure/) AS "max_24h"
-  INTO "five_years".:MEASUREMENT
-  FROM "five_weeks"."diematic"
-  GROUP BY time(24h),*
-END
+influx -database diematic -precision rfc3339.sql < init-influxdb.sql
 ```
-
 
 ## Crontab
 To run the script every minute and feed the database, `crontab -e` and add the following line:
