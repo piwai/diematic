@@ -1,4 +1,4 @@
-logging: critical
+logging: info
 
 
 # Modbus connection parameters
