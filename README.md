@@ -20,7 +20,7 @@ Check links in the "references" section below on how to do the hardware setup.
 
 ## Installation
 ```
-git clone https://github.com/gmasse/diematic.git
+git clone https://github.com/piwai/diematic.git
 cd diematic
 python3 -m venv venv
 source venv/bin/activate
