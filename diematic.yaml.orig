@@ -13,11 +13,8 @@ modbus:
     timeout: 10
     baudrate: 9600
     register_ranges:
-      - [ 600, 616]
-      - [ 637, 638]
-      - [ 650, 652]
-      - [ 656, 658]
-      - [ 672, 674] 
+      - [ 600, 672]
+
 
 influxdb:
     host: localhost
@@ -27,21 +24,6 @@ influxdb:
     database: diematic
 
 registers:
-    - id: 650
-      name: temperature_day_circuit_a
-      type: DiematicOneDecimal
-    - id: 651
-      name: temperature_night_circuit_a
-      type: DiematicOneDecimal 
-    - id: 656
-      name: temperature_day_circuit_b
-      type: DiematicOneDecimal
-    - id: 657
-      name: temperature_night_circuit_b
-      type: DiematicOneDecimal
-    - id: 672
-      name: temperature_tank_setpoint
-      type: DiematicOneDecimal
     - id: 601
       name: temperature_external
       type: DiematicOneDecimal
@@ -75,3 +57,18 @@ registers:
     - id: 638
       name: mode_circuit_b
       type: DiematicModeFlag
+    - id: 650
+      name: temperature_day_circuit_a
+      type: DiematicOneDecimal
+    - id: 651
+      name: temperature_night_circuit_a
+      type: DiematicOneDecimal
+    - id: 656
+      name: temperature_day_circuit_b
+      type: DiematicOneDecimal
+    - id: 657
+      name: temperature_night_circuit_b
+      type: DiematicOneDecimal
+    - id: 672
+      name: temperature_tank_setpoint
+      type: DiematicOneDecimal
