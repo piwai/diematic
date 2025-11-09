@@ -1,12 +1,11 @@
 import yaml
-import time
 import os.path
 import argparse
-from influxdb import InfluxDBClient
 from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 
 from diematic import log
 from diematic.boiler import Boiler
+from diematic.backend import influxdb
 
 
 DEFAULT_MODBUS_RETRIES = 3
@@ -36,7 +35,8 @@ with open(config_file) as f:
     cfg = yaml.safe_load(f)
 
 # Set logger
-logger = log.get_logger(args, cfg)
+loglevel = log.get_log_level_from(args, cfg)
+logger = log.get_logger(loglevel)
 
 # --------------------------------------------------------------------------- #
 # set configuration variables (command line prevails on configuration file)
@@ -118,23 +118,8 @@ def run_sync_client():
 
 
     #pushing data to influxdb
-    if args.backend and args.backend == 'influxdb':
-        timestamp = int(time.time() * 1000) #milliseconds
-        influx_json_body = [
-        {
-            "measurement": "diematic",
-            "tags": {
-                "host": "raspberrypi",
-            },
-            "timestamp": timestamp,
-            "fields": MyBoiler.fetch_data() 
-        }
-        ]
-
-        influx_client = InfluxDBClient(cfg['influxdb']['host'], cfg['influxdb']['port'], cfg['influxdb']['user'], cfg['influxdb']['password'], cfg['influxdb']['database'])
-
-        logger.debug(f"Write points: {influx_json_body}")
-        influx_client.write_points(influx_json_body, time_precision='ms')
+    if args.backend == 'influxdb':
+        influxdb.send_data('raspberrypi', MyBoiler.fetch_data(), cfg['influxdb'], logger)
 
 
 if __name__ == "__main__":
