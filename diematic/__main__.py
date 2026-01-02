@@ -1,7 +1,8 @@
 import yaml
 import os.path
 import argparse
-from pymodbus.client.sync import ModbusSerialClient as ModbusClient
+import pymodbus.client as ModbusClient
+from pymodbus import FramerType
 
 from diematic import log
 from diematic.boiler import Boiler
@@ -90,7 +91,7 @@ MyBoiler = Boiler(index=cfg['registers'], logger=logger)
 
 def run_sync_client():
     #enabling modbus communication
-    client = ModbusClient(method='rtu', port=MODBUS_DEVICE, timeout=MODBUS_TIMEOUT, baudrate=MODBUS_BAUDRATE)
+    client = ModbusClient.ModbusSerialClient(framer=FramerType.RTU, port=MODBUS_DEVICE, timeout=MODBUS_TIMEOUT, baudrate=MODBUS_BAUDRATE)
     client.connect()
 
     MyBoiler.registers = []
@@ -103,7 +104,7 @@ def run_sync_client():
 
         for i in range(MODBUS_RETRIES):
             logger.debug(f"Attempt {i} to read registers from {id_start} to {id_stop}")
-            rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, unit=MODBUS_UNIT)
+            rr = client.read_holding_registers(count=(id_stop-id_start+1), address=id_start, device_id=MODBUS_UNIT)
             if rr.isError():
                 logger.error(rr.message)
                 MyBoiler.registers.extend([None] * (id_stop-id_start+1))
