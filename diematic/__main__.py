@@ -86,7 +86,7 @@ if MODBUS_UNIT is None:
 # --------------------------------------------------------------------------- #
 # let's go!
 # --------------------------------------------------------------------------- #
-MyBoiler = Boiler(index=cfg['registers'], logger=log)
+MyBoiler = Boiler(index=cfg['registers'], logger=logger)
 
 def run_sync_client():
     #enabling modbus communication
