@@ -1,6 +1,7 @@
 import time
 
-from influxdb import InfluxDBClient
+from influxdb_client import InfluxDBClient
+from influxdb_client.client.write_api import SYNCHRONOUS
 
 
 def send_data(hostname, data, conf, logger):
@@ -15,7 +16,7 @@ def send_data(hostname, data, conf, logger):
         "fields": data 
     }
     ]
-    influx_client = InfluxDBClient(conf['host'], conf['port'], conf['user'], conf['password'], conf['database'])
-
-    logger.debug(f"Write points: {influx_json_body}")
-    influx_client.write_points(influx_json_body, time_precision='ms')
+    with InfluxDBClient(url=conf['url'], token=conf['token'], org=conf['org']) as client:
+        write_api = client.write_api(write_options=SYNCHRONOUS)
+        logger.debug(f"Write points: {influx_json_body}")
+        write_api.write(bucket=conf['bucket'],record=influx_json_body)

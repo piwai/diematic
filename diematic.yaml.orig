@@ -17,11 +17,11 @@ modbus:
 
 
 influxdb:
-    host: localhost
-    port: 8086
-    user: diematic
-    password: mypassword
-    database: diematic
+    url: http://your.influxdb.host:8086
+    org: your-org-name
+    bucket: your-bucket
+    token: your-secret-token
+    database: your-db-name
 
 registers:
     - id: 601
